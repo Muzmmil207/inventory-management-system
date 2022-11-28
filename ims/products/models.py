@@ -143,7 +143,7 @@ class Brand(models.Model):
         return self.name
 
 
-class ProductsInventory(models.Model):
+class ProductInventory(models.Model):
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
@@ -207,27 +207,46 @@ class ProductsInventory(models.Model):
             "The printed price of the product associated with the item."
         ),
     )
-    discount = models.FloatField(
+    discount = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.00,
         verbose_name=_("Discount"),
         help_text=_("The discount is given by the supplier."),
+        error_messages={
+            "name": {
+                "max_length": _("the price must be between 0 and 999.99."),
+            },
+        },
     )
-    price = models.FloatField(
+    price = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.00,
         verbose_name=_("price"),
         help_text=_("The price at which the product was purchased."),
+        error_messages={
+            "name": {
+                "max_length": _("the price must be between 0 and 999.99."),
+            },
+        },
     )
     quantity = models.PositiveIntegerField(
+        default=0,
         verbose_name=_("quantity"),
         help_text=_("The total quantity received at the inventory.ier."),
     )
     sold = models.PositiveIntegerField(
+        default=0,
         verbose_name=_("sold"),
         help_text=_("The total quantity sold to the customers."),
     )
-    available = models.FloatField(
+    available = models.IntegerField(
+        default=0,
         verbose_name=_("Available"),
         help_text=_("The quantity that is available on the stock."),
     )
-    defective = models.FloatField(
+    defective = models.IntegerField(
         verbose_name=_("Defective"),
         help_text=_(
             "The total defective items either received at the inventory or returned by the customers."
@@ -236,3 +255,52 @@ class ProductsInventory(models.Model):
 
     def __str__(self):
         return self.product
+
+
+class Media(models.Model):
+    """
+    The product image table.
+    """
+
+    product_inventory = models.ForeignKey(
+        ProductInventory,
+        on_delete=models.PROTECT,
+        related_name="media_product_inventory",
+    )
+    image = models.ImageField(
+        unique=False,
+        null=False,
+        blank=False,
+        verbose_name=_("product image"),
+        upload_to="images/",
+        default="images/default.png",
+        help_text=_("format: required, default-default.png"),
+    )
+    alt_text = models.CharField(
+        max_length=255,
+        unique=False,
+        null=False,
+        blank=False,
+        verbose_name=_("alternative text"),
+        help_text=_("format: required, max-255"),
+    )
+    is_feature = models.BooleanField(
+        default=False,
+        verbose_name=_("product default image"),
+        help_text=_("format: default=false, true=default image"),
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        verbose_name=_("product visibility"),
+        help_text=_("format: Y-m-d H:M:S"),
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("date sub-product created"),
+        help_text=_("format: Y-m-d H:M:S"),
+    )
+
+    class Meta:
+        verbose_name = _("product image")
+        verbose_name_plural = _("product images")
