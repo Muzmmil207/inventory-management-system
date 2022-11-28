@@ -5,7 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2**ajmz+v^^e%_5^=4z!nh&ab#cai0d7armgj%jzr36y4iru3k"
+SECRET_KEY = (
+    "django-insecure-2**ajmz+v^^e%_5^=4z!nh&ab#cai0d7armgj%jzr36y4iru3k"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -22,8 +24,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # My apps
     "users",
     "products",
+    # Third part apps
+    "mptt",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [

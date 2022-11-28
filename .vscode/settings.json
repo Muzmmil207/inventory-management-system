@@ -13,4 +13,7 @@
             "source.organizeImports": true
         }
     },
+    "cSpell.words": [
+        "mptt"
+    ],
 }
