@@ -3,6 +3,19 @@
 
 {% block content %}
 <h1>Categories</h1>
+<div id="categories-name">
+    
+</div>
+<script>
+    const url = '/products/api/category/'
 
-
+    fetch(url)
+        .then(response => response.json())
+        .then((data) => {
+            // console.log(data)
+            data.map((category) => {
+                $('#categories-name').append(`<p><a href="/products/categories/${category['slug']}">${category['name']}</a></p>`)
+            })
+        })
+</script>
 {% endblock %}

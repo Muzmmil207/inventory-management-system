@@ -1,16 +1,41 @@
 from products.models import Category, Product
-from rest_framework import generics, mixins, viewsets
+from rest_framework import generics, mixins
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .serializer import ProductSerializer
+from .serializer import CategorySerializer, ProductSerializer
+
+
+class CategoryAPIView(generics.GenericAPIView, mixins.ListModelMixin):
+    """
+    API endpoint that returns all Categories
+    """
+
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def get(self, request):
+        return self.list(request)
+
+
+class ProductByCategory(APIView):
+    """
+    Return product by category
+    """
+
+    def get(self, request, slug=None):
+        queryset = Product.objects.filter(category__slug=slug)
+        serializer = ProductSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class ProductAPIView(generics.GenericAPIView, mixins.ListModelMixin):
     """
     API endpoint that returns all products
     """
+
     queryset = Product.objects.all()
-    serializer_class=ProductSerializer
+    serializer_class = ProductSerializer
 
     def get(self, request):
         return self.list(request)
@@ -24,12 +49,8 @@ class SingleProductAPIView(
     API endpoint that returns single product
     """
 
-    queryset =  Product.objects.all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-    # def retrieve(self, request, slug=None, pk=None):
-    #     queryset = Product.objects.filter(slug=slug, id=pk)
-    #     serializer = ProductSerializer(queryset, many=False)
-    #     return Response(serializer.data)
