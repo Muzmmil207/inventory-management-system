@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     # Third part apps
     "mptt",
     "ckeditor",
-    "django_seed",
     "rest_framework",
 ]
 
