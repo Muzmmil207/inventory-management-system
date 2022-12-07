@@ -1,9 +1,18 @@
 from django.urls import include, path
 
-from . import views
+from .views import Categories, ProductByCategory, ProductDetail
 
 urlpatterns = [
-    path("categories/", views.categories, name="categories"),
-    path("categories/<slug:slug>/", views.product_by_category, name="category"),
+    path("categories/", Categories.as_view(), name="categories"),
+    path(
+        "categories/<slug:slug>/",
+        ProductByCategory.as_view(),
+        name="category",
+    ),
+    path(
+        "<slug:slug>/",
+        ProductDetail.as_view(),
+        name="product",
+    ),
     path("api/", include("products.api.urls")),
 ]

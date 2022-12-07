@@ -1,9 +1,14 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 
-# Create your views here.
-def categories(request):
-    return render(request, "products/categories.html")
+class Categories(TemplateView):
+    template_name = "products/categories.html"
 
-def product_by_category(request, slug):
-    return render(request, "products/product_by_category.html", {'slug':slug})
+
+class ProductByCategory(TemplateView):
+    template_name = "products/product_by_category.html"
+
+
+class ProductDetail(TemplateView):
+    template_name = "products/product_detail.html"

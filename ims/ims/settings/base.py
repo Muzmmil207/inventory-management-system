@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     # My apps
     "users",
     "products",
+    "dashboard",
     # Third part apps
     "mptt",
     "ckeditor",
@@ -48,7 +49,7 @@ ROOT_URLCONF = "ims.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

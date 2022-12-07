@@ -18,7 +18,7 @@ class CategoryAPIView(generics.GenericAPIView, mixins.ListModelMixin):
         return self.list(request)
 
 
-class ProductByCategory(APIView):
+class ProductByCategoryAPIView(APIView):
     """
     Return product by category
     """
