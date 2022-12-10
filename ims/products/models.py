@@ -5,7 +5,6 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
-from users.models import User
 
 
 class Category(MPTTModel):
@@ -170,23 +169,6 @@ class ProductInventory(models.Model):
         verbose_name=_("Supplier"),
         help_text=_(
             "The supplier id to identify the supplier associated with the inventory item."
-        ),
-    )
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.DO_NOTHING,
-        related_name="user",
-        verbose_name=_("Created By"),
-        help_text=_(
-            "The user id to identify the user who added the inventory item."
-        ),
-    )
-    updated_By = models.ForeignKey(
-        User,
-        on_delete=models.DO_NOTHING,
-        verbose_name=_("Updated By"),
-        help_text=_(
-            "The user id to identify the user who updated the inventory item."
         ),
     )
     sku = models.CharField(
