@@ -1,4 +1,4 @@
-from products.models import (
+from apps.stock.models import (
     Address,
     Brand,
     Category,

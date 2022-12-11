@@ -14,5 +14,5 @@ urlpatterns = [
         ProductDetail.as_view(),
         name="product",
     ),
-    path("api/", include("products.api.urls")),
+    path("api/", include("apps.stock.api.urls")),
 ]

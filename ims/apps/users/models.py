@@ -3,7 +3,8 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext as _
 from django_countries.fields import CountryField
-from products.models import Address
+
+from apps.stock.models import Address
 
 from .managers import CustomUserManager
 

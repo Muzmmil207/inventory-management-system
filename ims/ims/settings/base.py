@@ -25,9 +25,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # My apps
-    "users",
-    "products",
-    "dashboard",
+    "apps.users",
+    "apps.stock",
+    "apps.dashboard",
     # Third part apps
     "mptt",
     "ckeditor",
