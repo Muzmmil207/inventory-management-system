@@ -10,7 +10,13 @@ from .managers import CustomUserManager
 
 
 class User(AbstractUser, PermissionsMixin):
-    email = models.EmailField(_("email address"), unique=True)
+    email_regex = RegexValidator(
+        regex=r"^[A-z0-9\.]+@[A-z0-9]+\.(com|net|org|info)$",
+        message=_("Email must be entered in the format: `abc@abc.com`."),
+    )
+    email = models.EmailField(
+        _("email address"), validators=[email_regex], unique=True
+    )
     first_name = models.CharField(db_index=True, max_length=150)
     last_name = models.CharField(max_length=150)
     country = CountryField()
@@ -28,10 +34,6 @@ class User(AbstractUser, PermissionsMixin):
         max_length=20,
         unique=True,
         verbose_name=_("Mobile Number"),
-    )
-    email_regex = RegexValidator(
-        regex=r"^[A-z0-9\.]+@[A-z0-9]+\.(com|net|org|info)$",
-        message=_("Email must be entered in the format: `abc@abc.com`."),
     )
     profile = models.OneToOneField(
         "Profile", on_delete=models.SET_NULL, null=True, blank=True

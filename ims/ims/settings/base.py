@@ -76,6 +76,8 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "users.User"
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/users/login/"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

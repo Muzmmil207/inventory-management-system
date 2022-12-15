@@ -1,3 +1,23 @@
-from django.shortcuts import render
+from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect, render
 
-# Create your views here.
+from .forms import UserLoginForm, UserRegistrationForm
+
+
+class LoginPageView(LoginView):
+    template_name = "users/login.html"
+    form_class = UserLoginForm
+
+
+class LogoutPageView(LogoutView):
+    next_page = "/users/login/"
+
+
+def register(request):
+    form = UserRegistrationForm
+    if request.POST:
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    return render(request, "users/registration.html", {"form": form})

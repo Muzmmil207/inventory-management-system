@@ -18,11 +18,27 @@
   <div class="wrapper">
     <a href="{% url 'home' %}">Dashboard</a>
     <hr>
-
-    <!-- Content Wrapper. Contains page content -->
-    {% block content %}
-    {% endblock %}
-    <!-- /.content-wrapper -->
+    <div class="row">
+      <div class="col-4">
+        <ul>
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="{% url 'categories' %}">categories</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li>
+            <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="col-8">
+        <!-- Content Wrapper. Contains page content -->
+        {% block content %}
+        {% endblock %}
+        <!-- /.content-wrapper -->
+      </div>
+    </div>
   </div>
   <!-- ./wrapper -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

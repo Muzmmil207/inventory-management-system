@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form class="account-form p-4 rounded" method="post">
+
+        {% csrf_token %}
+        <h3 class="mb-4">Sign In</h3>
+
+        {% if form.errors %}
+        <div class="alert alert-primary" role="alert">
+            Error: Username or Password not correct!
+        </div>
+        {% endif %}
+
+        <label class="form-label">{{ form.username.label}}</label>
+        {{ form.username}}
+
+        <label class="form-label">{{ form.password.label}}</label>
+        {{ form.password}}
+        <div class="d-grid gap-2">
+            <input type="hidden" name="next">
+            <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
+            </button>
+        </div>
+        <p class="text-center pb-3">
+            <a href="{% url 'login' %}">Create an account</a>
+        </p>
+    </form>
+</div>
+{% endblock %}
