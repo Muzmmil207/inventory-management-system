@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
 
@@ -13,6 +14,7 @@ class LogoutPageView(LogoutView):
     next_page = "/users/login/"
 
 
+@login_required
 def register(request):
     form = UserRegistrationForm
     if request.POST:

@@ -11,7 +11,7 @@ class CategoryAPIView(generics.GenericAPIView, mixins.ListModelMixin):
     API endpoint that returns all Categories
     """
 
-    queryset = Category.objects.all()
+    queryset = Category.objects.c
     serializer_class = CategorySerializer
 
     def get(self, request):
